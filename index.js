@@ -3,10 +3,14 @@ var isGoldeScore = false;
 var isOsaekomi = false;
 var isOsaekomiPaused = true;
 
-var timer = setInterval(function(){}, 1000);
-var timerOsaekomi = setInterval(function(){}, 1000);
+var timer = setInterval(function() {}, 1000);
+var timerOsaekomi = setInterval(function() {}, 1000);
 
-var standardTime = 5;
+var audio = new Audio("gong00.wav");
+
+var elem = document.body; // Make the body go full screen.
+
+var standardTime = 120;
 var count = standardTime;
 var countOsaekomi = 0;
 
@@ -17,18 +21,28 @@ var color = ["white", "blue"];
 hideText();
 
 /* Commands */
-$(document).keydown(function(event){
+$(document).keydown(function(event) {
   commandList(event.key);
 })
 
-function commandList(key){
+function commandList(key) {
   console.log(key);
   switch (key) {
     case ' ':
       startCountDown();
       break;
     case 'Enter':
+      requestFullScreen(elem);
       resetAll();
+      break;
+    case '2':
+      setStandardTime(2);
+      break;
+    case '3':
+      setStandardTime(3);
+      break;
+    case '4':
+      setStandardTime(4);
       break;
 
     case 'q':
@@ -101,13 +115,14 @@ function commandList(key){
       minusOneSecond();
       break;
 
-    default: console.log(key);
+    default:
+      console.log(key);
 
   }
 }
 
 /* Control Commands */
-function endFight(){
+function endFight() {
   isPaused = true;
   isOsaekomi = false;
 
@@ -115,69 +130,72 @@ function endFight(){
   clearInterval(timerOsaekomi);
 }
 
-function applyIppon(i){
+function applyIppon(i) {
   score[i] = 100;
   endFight();
   showScore(i);
 }
 
-function applyShido(i){
-  if(shido[i] < 3){
+function applyShido(i) {
+  if (shido[i] < 3) {
     shido[i]++;
   }
   checkShidoWinner(i);
   showShido(i);
 }
 
-function applyWazari(i){
-  if(score[i] === 0){
+function applyWazari(i) {
+  if (score[i] === 0) {
     score[i]++;
-    if(isGoldeScore){
+    if (isGoldeScore && !isOsaekomi) {
       applyWinner(i);
     }
-  } else if(score[i] === 1){
+  } else if (score[i] === 1) {
     score[i] = 100;
   }
   showScore(i);
 }
 
-function applyWinner(i){
+function applyWinner(i) {
   selectedColor = color[i];
   $("." + selectedColor + " .score-text").text("Vencedor");
   endFight();
 }
 
-function removeIppon(i){
+function removeIppon(i) {
   score[i] = 0;
   showScore(i);
 }
 
-function removeShido(i){
-  if(shido[i] > 0){
+function removeShido(i) {
+  if (shido[i] > 0) {
     shido[i]--;
   }
-  if(shido[i] == 2){
+  if (shido[i] == 2) {
     showScore(0);
     showScore(1);
   }
   showShido(i);
 }
 
-function removeWazari(i){
-  if(score[i] > 0){
-    if(score[i] === 1) {score[i]--;}
-    else{score[i] = 1;}
+function removeWazari(i) {
+  if (score[i] > 0) {
+    if (score[i] === 1) {
+      score[i]--;
+    } else {
+      score[i] = 1;
+    }
   }
   showScore(i);
 }
 
-function resetAll(){
+function resetAll() {
   isPaused = true;
   isGoldeScore = false;
   isOsaekomi = false;
   isOsaekomiPaused = true;
 
-  for(var i = 0; i<2; i++){
+  for (var i = 0; i < 2; i++) {
     shido[i] = 0;
     score[i] = 0;
 
@@ -199,7 +217,7 @@ function resetAll(){
 }
 
 /* Cronometer */
-function cancelOsaekomi(){
+function cancelOsaekomi() {
   clearInterval(timerOsaekomi);
   countOsaekomi = 0;
   $(".osaekomi-text").hide();
@@ -209,23 +227,25 @@ function cancelOsaekomi(){
   isOsaekomiPaused = true;
 }
 
-function countDown(){
-  if(!isPaused){
+function countDown() {
+  if (!isPaused) {
     count--;
-    if(count < 0){
-      var audio = new Audio("gong00.wav");
-      audio.play();
-      plusOneSecond();
+    if (count <= 0) {
+      console.log("isOsaekomi: " + isOsaekomi);
+      if(!isOsaekomi){
+        audio.play();
+      }
+
       clearInterval(timer);
       isPaused = true;
       setTimerTextColor();
       $(".timer-text").text(formatTime(0));
 
-      if(!isOsaekomi){
+      if (!isOsaekomi) {
         winner = whoWinner();
-        if(winner === 3){
+        if (winner === 3) {
           isGoldeScore = true;
-        } else{
+        } else {
           applyWinner(winner);
         }
       }
@@ -234,71 +254,77 @@ function countDown(){
   $(".timer-text").text(formatTime(count));
 }
 
-function countUpOsaekomi(i){
-  if(!isOsaekomiPaused){
+function countUpOsaekomi(i) {
+  if (!isOsaekomiPaused) {
     countOsaekomi++;
 
     var countOsaekomiText = countOsaekomi;
-    if(countOsaekomi<10){
+    if (countOsaekomi < 10) {
       countOsaekomiText = "0" + countOsaekomi;
     }
 
     $(".osaekomi-text").text(countOsaekomiText);
 
-    if(countOsaekomi === 10){
+    if (countOsaekomi === 10) {
       applyWazari(i);
-    } else if(countOsaekomi === 20){
+      if(score[i] === 100){
+        clearInterval(timerOsaekomi);
+        $(".osaekomi-text").addClass("is-paused");
+        audio.play();
+      }
+    } else if (countOsaekomi === 20) {
       clearInterval(timerOsaekomi);
       $(".osaekomi-text").addClass("is-paused");
       applyIppon(i);
+      audio.play();
     }
   }
 }
 
-function countUp(){
-  if(!isPaused){
+function countUp() {
+  if (!isPaused) {
     count++;
     $(".timer-text").text(formatTime(count));
   }
 }
 
-function minusOneSecond(){
-  if(count > 0){
+function minusOneSecond() {
+  if (count > 0) {
     count--;
     $(".timer-text").text(formatTime(count));
   }
 }
 
-function plusOneSecond(){
+function plusOneSecond() {
   count++;
   $(".timer-text").text(formatTime(count));
 }
 
-function setCount(){
+function setCount() {
   count = standardTime;
 }
 
-function setStandardTime(newTime){
+function setStandardTime(newTime) {
   standardTime = newTime * 60;
   setCount();
 }
 
-function startCountDown(){
-  if(isPaused){
-    if(!isGoldeScore){
+function startCountDown() {
+  if (isPaused) {
+    if (!isGoldeScore) {
       timer = setInterval(countDown, 1000);
     } else {
       $(".golden-score-text").show();
       timer = setInterval(countUp, 1000);
     }
-  } else{
+  } else {
     clearInterval(timer);
   }
   isPaused = !isPaused;
   setTimerTextColor();
 }
 
-function startGoldenScore(){
+function startGoldenScore() {
   isGoldeScore = true;
   isPaused = false;
   setTimerTextColor();
@@ -306,8 +332,8 @@ function startGoldenScore(){
   startCountDown();
 }
 
-function startOsaekomiTimer(i){
-  if(isOsaekomi){
+function startOsaekomiTimer(i) {
+  if (isOsaekomi) {
     isOsaekomiPaused = true;
     isOsaekomi = false;
     clearInterval(timerOsaekomi);
@@ -318,93 +344,111 @@ function startOsaekomiTimer(i){
     clearInterval(timerOsaekomi);
     $(".osaekomi-text").removeClass("is-paused");
     $(".osaekomi-text").show();
-    timerOsaekomi = setInterval(function(){countUpOsaekomi(i)}, 1000);
+    timerOsaekomi = setInterval(function() {
+      countUpOsaekomi(i)
+    }, 1000);
   }
 }
 
 /* General Use Functions */
-function checkShidoWinner(i){
-  if(shido[i] === 3){
+function checkShidoWinner(i) {
+  if (shido[i] === 3) {
     applyWinner(toggleIndex(i));
   }
 }
 
 function indexOfMax(arr) {
-    var max = arr[0];
-    var maxIndex = 0;
+  var max = arr[0];
+  var maxIndex = 0;
 
-    for (var i = 1; i < arr.length; i++) {
-        if (arr[i] > max) {
-            maxIndex = i;
-            max = arr[i];
-        }
+  for (var i = 1; i < arr.length; i++) {
+    if (arr[i] > max) {
+      maxIndex = i;
+      max = arr[i];
     }
-    return maxIndex;
+  }
+  return maxIndex;
 }
 
-function formatTime(time){
+function formatTime(time) {
   var min = Math.floor(time / 60);
   var sec = time % 60;
 
-  if(sec < 10){sec = "0" + sec;}
+  if (sec < 10) {
+    sec = "0" + sec;
+  }
 
   return min + ":" + sec;
 }
 
-function hideText(){
+function hideText() {
   $("img").hide();
   $(".text").hide();
   $(".score-text").show();
 }
 
-function setTimerTextColor(){
-  if(isPaused){
+function setTimerTextColor() {
+  if (isPaused) {
     $(".timer-text").addClass("is-paused");
   } else {
     $(".timer-text").removeClass("is-paused");
   }
 }
 
-function showShido(i){
+function showShido(i) {
   selectedColor = color[i];
-  if(shido[i] === 0){
+  if (shido[i] === 0) {
     $("." + selectedColor + " .card").hide();
-  } else if(shido[i] === 1){
+  } else if (shido[i] === 1) {
     $("." + selectedColor + " .red-card").hide();
     $("." + selectedColor + " .yellow-card1").show();
     $("." + selectedColor + " .yellow-card2").hide();
-  } else if(shido[i] === 2){
+  } else if (shido[i] === 2) {
     $("." + selectedColor + " .red-card").hide();
     $("." + selectedColor + " .yellow-card1").show();
     $("." + selectedColor + " .yellow-card2").show();
-  } else if(shido[i] === 3){
+  } else if (shido[i] === 3) {
     $("." + selectedColor + " .red-card").show();
     $("." + selectedColor + " .yellow-card1").hide();
     $("." + selectedColor + " .yellow-card2").hide();
   }
 }
 
-function showScore(i){
+function showScore(i) {
   selectedColor = color[i];
-  if(score[i] < 100){
+  if (score[i] < 100) {
     $("." + selectedColor + " .score-text").text(score[i]);
-  } else if(score[i] === 100){
+  } else if (score[i] === 100) {
     $("." + selectedColor + " .score-text").text("IPPON");
   }
 }
 
-function toggleIndex(i){
-  if(i === 0){
+function toggleIndex(i) {
+  if (i === 0) {
     return 1;
-  } else if(i === 1){
+  } else if (i === 1) {
     return 0;
   }
 }
 
-function whoWinner(){
-  if(score[0] === score[1]){
+function whoWinner() {
+  if (score[0] === score[1]) {
     return 3;
-  } else{
+  } else {
     return indexOfMax(score);
   }
+}
+
+function requestFullScreen(element) {
+    // Supports most browsers and their versions.
+    var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+
+    if (requestMethod) { // Native full screen.
+        requestMethod.call(element);
+    } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+        var wscript = new ActiveXObject("WScript.Shell");
+        if (wscript !== null) {
+            wscript.SendKeys("{F11}");
+        }
+    }
 }

@@ -1,5 +1,5 @@
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight: 400;
   text-align: center;
   height: 100%;
@@ -90,6 +90,7 @@ div {
   top: 50%;
   transform: translate(-50%, -50%);
   width: 8%;
+  margin: 5px;
 }
 
 .card-2nd {
