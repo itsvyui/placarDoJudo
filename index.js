@@ -42,6 +42,11 @@ $(".min-4").click( () => setStandardTime(4));
 $(".reset-btn").click( () => resetAll() );
 $(".gs-btn").click( () => startGoldenScore() );
 $(".toketa").click( () => cancelOsaekomi() );
+$(".vencedor").click( () => {
+  $(".vencedor").css("width", "0");
+  $(".vencedor-text").hide();
+  resetAll();
+});
 
 
 function commandList(key){
@@ -181,6 +186,16 @@ function applyWinner(i){
   selectedColor = color[i];
   $("." + selectedColor + " .text-area" + " .score-text").text("Vencedor");
   endFight();
+  $(".vencedor").css({
+    "width": "100%",
+    "background-color": selectedColor
+  });
+  $(".vencedor-text").show();
+  if (selectedColor === "white") {
+    $(".vencedor-text").css("color", "black");
+  } else {
+    $(".vencedor-text").css("color", "white");
+  }
 }
 
 function removeIppon(i){
@@ -431,6 +446,10 @@ function showScore(i){
     $("." + selectedColor + " .score-text").text(score[i]);
   } else if(score[i] === 100){
     $("." + selectedColor + " .score-text").text("IPPON");
+    console.log("escrever ippon")
+    setTimeout( () => {
+      applyWinner(i);
+    }, 3000);
   }
 }
 
