@@ -387,3 +387,17 @@ h1,h2,h3,h4 {
         display: flex;
     }
 }
+
+@media screen and (orientation: landscape) and (max-height: 900px){
+    body {
+        font-size: 1.4rem;
+    }
+
+    .black {
+        font-size: 2rem;
+    }
+
+    .show-menu {
+        width: 60%;
+    }
+}
