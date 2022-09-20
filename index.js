@@ -165,16 +165,21 @@ function applyWazari(i){
     score[i]++;
     if(isGoldeScore){
       applyWinner(i);
+    } else {
+      showScore(i);
     }
   } else if(score[i] === 1){
     score[i] = 100;
+    showScore(i);
+    endFight();
   }
-  showScore(i);
+  //showScore(i);
 }
 
 function applyWinner(i){
+  console.log("apply winner");
   selectedColor = color[i];
-  $("." + selectedColor + " .score-text").text("Vencedor");
+  $("." + selectedColor + " .text-area" + " .score-text").text("Vencedor");
   endFight();
 }
 
