@@ -17,12 +17,34 @@ var color = ["white", "blue"];
 hideText();
 
 /* Commands */
-$(document).keydown(function(event){
-  commandList(event.key);
-})
+$(document).keydown( (e) => commandList(e.key) );
+$(".iniciar").click( () => resetAll() );
+$(".white .text-area").click( () => applyWazari(0));
+$(".blue .text-area").click( () => applyWazari(1));
+$(".white .cards").click( () => {applyShido(0)});
+$(".blue .cards").click( () => {applyShido(1)});
+$(".timer-text").click( () => startCountDown() );
+$(".osaekomi-branco").click( () => startOsaekomiTimer(0));
+$(".osaekomi-azul").click( () => startOsaekomiTimer(1));
+$(".close").click( function () {
+  $(".info-menu").removeClass("show-menu");
+  $(".info-menu").addClass("hide-menu");
+  $(".overlay").css("width", "0");
+} );
+$(".info").click( () => {
+  $(".info-menu").addClass("show-menu");
+  $(".info-menu").removeClass("hide-menu");
+  $(".overlay").css("width", "100%");
+});
+$(".min-2").click( () => setStandardTime(2));
+$(".min-3").click( () => setStandardTime(3));
+$(".min-4").click( () => setStandardTime(4));
+$(".reset-btn").click( () => resetAll() );
+$(".gs-btn").click( () => startGoldenScore() );
+$(".toketa").click( () => cancelOsaekomi() );
+
 
 function commandList(key){
-  console.log(key);
   switch (key) {
     case ' ':
       startCountDown();
@@ -99,6 +121,15 @@ function commandList(key){
       break;
     case 'ArrowLeft':
       minusOneSecond();
+      break;
+    case '2':
+      setStandardTime(2);
+      break;
+    case '3':
+      setStandardTime(3);
+      break;
+    case '4':
+      setStandardTime(4);
       break;
 
     default: console.log(key);
@@ -196,6 +227,8 @@ function resetAll(){
   countOsaekomi = 0;
   $(".timer-text").text(formatTime(standardTime));
   setTimerTextColor();
+
+  $(".iniciar").hide();
 }
 
 /* Cronometer */
@@ -205,6 +238,8 @@ function cancelOsaekomi(){
   $(".osaekomi-text").hide();
   $(".osaekomi-text").text("00");
   $(".osaekomi-text").removeClass("is-paused");
+  $(".white").removeClass("yellow");
+  $(".blue").removeClass("yellow");
   isOsaekomi = false;
   isOsaekomiPaused = true;
 }
@@ -319,6 +354,7 @@ function startOsaekomiTimer(i){
     $(".osaekomi-text").removeClass("is-paused");
     $(".osaekomi-text").show();
     timerOsaekomi = setInterval(function(){countUpOsaekomi(i)}, 1000);
+    $("." + color[i]).addClass("yellow");
   }
 }
 
@@ -352,7 +388,7 @@ function formatTime(time){
 }
 
 function hideText(){
-  $("img").hide();
+  $(".card").hide();
   $(".text").hide();
   $(".score-text").show();
 }

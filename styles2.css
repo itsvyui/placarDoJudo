@@ -1,0 +1,389 @@
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    margin: 0;
+    height: 100%;
+    font-size: 5.5rem;
+}
+
+h1,h2,h3,h4 {
+    margin: 0;
+}
+
+.white {
+    /*background-size: 200% 100%;
+    background-image: linear-gradient(to left, yellow 50%, white 50%);*/
+    background-color: white;
+}
+
+.yellow {
+    transition: linear background-position 20s;
+    background-position: 100% 0;
+}
+
+.blue {
+    /*background-size: 200% 100%;
+    background-image: linear-gradient(to left, yellow 50%, blue 50%);*/
+    background-color: blue;
+    color: white;
+}
+
+.black {
+    background-color: black;
+    color: lightgreen;
+    flex: 0.4;
+    max-height: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 7%;
+    font-size: 7.5rem;
+}
+
+.placar {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.flex-box {
+    flex: 0.3;
+    max-height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.text-area {
+    flex: 0.6;
+    max-width: 60%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    margin-left: 7%;
+}
+.text-area:hover {
+    cursor: pointer;
+}
+
+.cards {
+    flex: 0.4;
+    max-width: 40%;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 5%;
+    height: 80%;  
+}
+.cards:hover {
+    cursor: pointer;
+}
+
+.card {
+    width: 100px;
+}
+
+.timer {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    flex: 0.7;
+    
+}
+.timer:hover {
+    cursor: pointer;
+}
+
+.is-paused{
+    color: darkred;
+}
+  
+.golden-score-text{
+    color: gold;
+    justify-self: flex-start;
+}
+  
+.osaekomi {
+    height: 100%;
+    flex: 0.3;
+    display: flex;
+    position: relative;
+}
+.osaekomi:hover {
+    cursor: pointer;
+}
+
+.click-white {
+    flex: 0.5;
+    transition: linear 1s;
+}
+.click-white:hover {
+    background-color: white;
+}
+
+.click-blue {
+    flex: 0.5;
+    transition: linear 1s;
+}
+.click-blue:hover {
+    background-color: blue;
+}
+
+.osaekomi-text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.iniciar {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    color: white;
+    opacity: 0.9;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.iniciar h1 {
+    text-align: center;  
+}
+.iniciar h4 {
+    font-size: 5rem;
+}
+
+.iniciar:hover {
+    cursor: pointer;
+}
+
+.info {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 15px;
+    display: flex;
+    align-items: flex-start;
+}
+.info:hover {
+    cursor: pointer;
+}
+
+.info img {
+    width: 30px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    opacity: 0.9;
+    z-index: 1;
+    width: 0;
+    height: 100%;
+    transition: linear 0.3s;
+}
+
+.info-menu {
+    font-size: 1rem;
+    background-color: rgb(224, 220, 220);
+    border-left: 1px solid black;
+    height: 100%;
+    width: 0;
+    overflow-x: hidden;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    transition: linear 0.2s;
+    opacity: 0.99;
+}
+
+.hide-menu {
+    width: 0;  
+}
+
+.show-menu {
+    width: 30%;
+}
+
+.info-contents {
+    padding: 6.5%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    height: 80%;
+}
+.info-contents li,h3 {
+    transition: 0.1s;
+    display: block;
+}
+.info-contents ul {
+    list-style-type: none;
+}
+
+.list-comandos {
+    padding-left: 0;
+}
+
+
+.close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 15px;
+}
+.close:hover {
+    cursor: pointer;
+}
+
+.close img {
+    width: 30px;
+}
+
+.comandos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.btn {
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    transition: 0.5s;
+    width: 20%;
+    margin: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn:hover {
+    cursor: pointer;
+    background-color: black;
+    border: 1px solid white;
+    color: white;
+}
+
+.gs-btn {
+    width: 40%;
+}
+
+.osaekomi-branco,.osaekomi-azul {
+    display: none;
+}
+
+@media screen and (max-width: 720px) {
+    body {
+        font-size: 2rem;
+    }
+
+    .flex-box {
+        flex: 0.35;
+        max-height: 35%;
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .black {
+        flex: 0.3;
+        max-height: 30%;
+        font-size: 2.5rem;
+    }
+
+    .text-area {
+        margin-left: 5%;
+        width: 100%;
+        flex: 0.5;
+        max-height: 50%;
+        max-width: 80%;
+        align-self: flex-start;
+    }
+
+    .cards {
+        margin-right: 15%;
+        margin-bottom: 5%;
+        align-self: flex-end;
+        flex: 0.5;
+        max-height: 50%;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .timer-text {      
+        height: 100%;
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+    }
+
+
+    .gold:hover {
+        background-color: black;
+    }
+
+    .osaekomi {
+        height: 80%;
+        transition: linear 20s;
+        border-radius: 5px;
+    }
+
+    .click-blue:hover {
+        background-color: black;
+    }
+    .click-white:hover {
+        background-color: black;
+    }
+
+    .iniciar h4 {
+        font-size: 1.5rem;
+    }
+
+    .show-menu {
+        width: 90%;
+    }
+
+    .info-contents {
+        padding-top: 50px;
+    }
+
+    .info-contents h3 {
+        text-align: center;
+    }
+
+    .list-comandos {
+        display: none;
+    }
+
+    .comandos {
+        flex-direction: column;
+        justify-content: space-around;
+        height: 90%;
+    }
+
+    .btn {
+        width: 90%;
+        flex: 0.10;
+        margin: 2%;
+        margin-left: 0;
+        display: flex;
+    }
+
+    .osaekomi-branco,.osaekomi-azul {
+        display: flex;
+    }
+}
