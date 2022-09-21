@@ -1,3 +1,5 @@
+var audio = new Audio("gong00.wav");
+
 var isPaused = true;
 var isGoldeScore = false;
 var isOsaekomi = false;
@@ -26,11 +28,7 @@ $(".blue .cards").click( () => {applyShido(1)});
 $(".timer-text").click( () => startCountDown() );
 $(".osaekomi-branco").click( () => startOsaekomiTimer(0));
 $(".osaekomi-azul").click( () => startOsaekomiTimer(1));
-$(".close").click( function () {
-  $(".info-menu").removeClass("show-menu");
-  $(".info-menu").addClass("hide-menu");
-  $(".overlay").css("width", "0");
-} );
+$(".close").click( () => handleCloseMenu() );
 $(".info").click( () => {
   $(".info-menu").addClass("show-menu");
   $(".info-menu").removeClass("hide-menu");
@@ -47,7 +45,28 @@ $(".vencedor").click( () => {
   $(".vencedor-text").hide();
   resetAll();
 });
+$(".minus-sec").click( () => minusOneSecond() );
+$(".plus-sec").click( () => plusOneSecond() );
+$(".btn-fechar").click( () => {
+  $(".controle").removeClass("controle-h");
+  $(".controle-box").css("display", "none");
+});
+$(".open-controle").click( () => handleOpenControle() );
 
+function handleCloseMenu() {
+  $(".info-menu").removeClass("show-menu");
+  $(".info-menu").addClass("hide-menu");
+  $(".overlay").css("width", "0");
+}
+
+function handleOpenControle() {
+  $(".controle").addClass("controle-h");
+  $(".controle-box").css("display", "block");
+  handleCloseMenu();
+  if(!isPaused){
+    startCountDown();
+  }
+}
 
 function commandList(key){
   switch (key) {
@@ -149,6 +168,8 @@ function endFight(){
 
   clearInterval(timer);
   clearInterval(timerOsaekomi);
+
+  audio.play();
 }
 
 function applyIppon(i){
@@ -267,10 +288,8 @@ function cancelOsaekomi(){
 function countDown(){
   if(!isPaused){
     count--;
-    if(count < 0){
-      var audio = new Audio("gong00.wav");
+    if(count <= 0){
       audio.play();
-      plusOneSecond();
       clearInterval(timer);
       isPaused = true;
       setTimerTextColor();
