@@ -51,9 +51,23 @@ h1,h2,h3,h4 {
     height: 100%;
 }
 
+.placar-top {
+    flex: 0.6;
+    display: flex;
+}
+
+.placar-top-right {
+    display: none;
+}
+
+.placar-top-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
 .flex-box {
-    flex: 0.3;
-    max-height: 30%;
+    flex: 0.5;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -92,8 +106,7 @@ h1,h2,h3,h4 {
     display: flex;
     align-items: center;
     height: 100%;
-    flex: 0.7;
-    
+    flex: 0.7;  
 }
 .timer:hover {
     cursor: pointer;
@@ -389,7 +402,11 @@ h1,h2,h3,h4 {
     }
 
     .controle-h {
-        height: 70%;
+        height: 80%;
+    }
+
+    .btn-fechar img {
+        top: 50%;
     }
 
     .controle-tempo {
@@ -397,15 +414,15 @@ h1,h2,h3,h4 {
     }
 
     .flex-box {
-        flex: 0.35;
-        max-height: 35%;
+        flex: 0.5;
+        max-height: 50%;
         width: 100%;
         flex-direction: column;
     }
 
     .black {
-        flex: 0.3;
-        max-height: 30%;
+        flex: 0.2;
+        height: 100%;
         font-size: 2.5rem;
     }
 
@@ -476,20 +493,50 @@ h1,h2,h3,h4 {
     .comandos {
         flex-direction: column;
         justify-content: space-around;
-        height: 90%;
+        align-items: center;
+        height: 100%;
+        padding: 0;
+        display: flex;
+        background-color: black;
+        border-left: 1px solid black;
+        font-size: 0.95rem;
     }
 
     .btn {
-        width: 90%;
-        flex: 0.10;
+        width: 70%;
+        flex: 0.1;
         margin: 2%;
         margin-left: 0;
+        background-color: blue;
+        color: white;
         display: flex;
     }
 
     .osaekomi-branco,.osaekomi-azul {
         display: flex;
     }
+
+    .placar-top {
+        display: flex;
+        flex: 0.8;
+    }
+
+    .placar-top-right {
+        display: block;
+        flex: 0.3;
+    }
+
+    .placar-top-left {
+        flex: 0.7;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .info {
+        display: none;
+    }
+
 }
 
 @media screen and (orientation: landscape) and (max-height: 650px){
@@ -501,7 +548,16 @@ h1,h2,h3,h4 {
         max-width: 100%;
     }
 
+    .placar-top {
+        flex: 0.8;
+    }
+
+    .flex-box {
+        flex: 0.5;
+    }
+
     .black {
+        flex: 0.2;
         font-size: 2rem;
     }
 

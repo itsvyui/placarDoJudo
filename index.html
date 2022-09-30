@@ -9,7 +9,8 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;900&family=Ubuntu&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;900&family=Ubuntu&display=swap"
+    rel="stylesheet">
   <!-- CSS -->
   <link rel="stylesheet" href="styles2.css">
 </head>
@@ -17,30 +18,48 @@
 <body>
   <div class="placar">
 
-    <div class="white flex-box">
-      
-      <div class="text-area">
-        <h1 class="text score-text">0</h1>
-      </div>
-      <div class="cards">
-        <img src="card-red.png" alt="red-card image" class="card red-card">
-        <img src="card-yellow.png" alt="yellow-card image" class="card yellow-card1">
-        <img src="card-yellow.png" alt="yellow-card image" class="card card-2nd yellow-card2">  
-      </div>  
-    </div>
+    <div class="placar-top">
+      <div class="placar-top-left">
+        <div class="white flex-box">
+
+          <div class="text-area">
+            <h1 class="text score-text">0</h1>
+          </div>
+          <div class="cards">
+            <img src="card-red.png" alt="red-card image" class="card red-card">
+            <img src="card-yellow.png" alt="yellow-card image" class="card yellow-card1">
+            <img src="card-yellow.png" alt="yellow-card image" class="card card-2nd yellow-card2">
+          </div>
+        </div>
   
-    <div class="blue flex-box">
-      
-      <div class="text-area">
-        <h1 class="text score-text">0</h1>
-      </div>
-      <div class="cards">
-        <img src="card-red.png" alt="red-card image" class="card red-card">
-        <img src="card-yellow.png" alt="yellow-card image" class="card yellow-card1">
-        <img src="card-yellow.png" alt="yellow-card image" class="card card-2nd yellow-card2">  
-      </div>
-    </div>
+        <div class="blue flex-box">
   
+          <div class="text-area">
+            <h1 class="text score-text">0</h1>
+          </div>
+          <div class="cards">
+            <img src="card-red.png" alt="red-card image" class="card red-card">
+            <img src="card-yellow.png" alt="yellow-card image" class="card yellow-card1">
+            <img src="card-yellow.png" alt="yellow-card image" class="card card-2nd yellow-card2">
+          </div>
+        </div>
+      </div>
+      <div class="placar-top-right">
+        <div class="comandos">
+          <div class="btn min-2">2min</div>
+          <div class="btn min-3">3min</div>
+          <div class="btn min-4">4min</div>
+          <div class="btn reset-btn">reset</div>
+          <div class="btn gs-btn">golden score</div>
+          <div class="btn toketa">toketa</div>
+          <div class="btn osaekomi-branco">osaekomi (branco)</div>
+          <div class="btn osaekomi-azul">osaekomi (azul)</div>
+          <div class="btn open-controle">editar cronômetro</div>
+        </div>
+      </div>
+      
+    </div>
+
     <div class=black>
       <div class="timer">
         <h2 class="text timer-text is-paused">0:00</h2>
@@ -57,10 +76,10 @@
   </div>
 
   <div class="iniciar">
-    
-      <h1>APERTE ENTER</h1>
-      <h4>(ou clique na tela)</h4>
-    
+
+    <h1>APERTE ENTER</h1>
+    <h4>(ou clique na tela)</h4>
+
   </div>
 
   <span class="info"><img src="info.png" alt="info"></span>
@@ -108,17 +127,18 @@
           <li>0: cancela osaekomi</li>
           <hr>
           <li>->: adiciona 1 seg.</li>
-          <li><-: retira 1 seg.</li>
+          <li>
+            <-: retira 1 seg.</li>
           <li>2: muda tempo padrão para 2 min.</li>
           <li>3: muda tempo padrão para 3 min.</li>
           <li>4: muda tempo padrão para 4 min.</li>
         </ul>
-        
+
         <span class="close"><img src="cancel.png" alt="fechar"></span>
       </div>
     </div>
   </div>
-  
+
   <div class="vencedor">
     <div class="vencedor-box">
       <div class="vencedor-text">
@@ -136,7 +156,7 @@
     </div>
     <span class="btn-fechar"><img src="cancel_white.png" alt="fechar"></span>
   </div>
-  
+
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="index.js" charset="utf-8"></script>

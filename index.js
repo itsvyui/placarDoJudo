@@ -205,7 +205,7 @@ function applyWazari(i){
 function applyWinner(i){
   console.log("apply winner");
   selectedColor = color[i];
-  $("." + selectedColor + " .text-area" + " .score-text").text("Vencedor");
+  //$("." + selectedColor + " .text-area" + " .score-text").text("Vencedor");
   endFight();
   $(".vencedor").css({
     "width": "100%",
